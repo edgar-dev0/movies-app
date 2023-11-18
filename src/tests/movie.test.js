@@ -39,6 +39,7 @@ test('PUT /movies/:id should update an movie record by id', async () => {
   expect(res.body.name).toBe(movie.name);
 });
 
+//test para relacion n:m
 test('POST /movies/:id/actors should create a many-to-many relationship record between movies and actors', async () => {
   const actor = await Actor.create({
     firstName: "Emilio",
@@ -55,6 +56,7 @@ test('POST /movies/:id/actors should create a many-to-many relationship record b
   expect(res.body.length).toBe(1);
 });
 
+//test para relacion n:m
 test('POST /movies/:id/directors should create a many-to-many relationship record between movies and dirctors', async () => {
   const director = await Director.create({
     firstName: "Robert",
@@ -71,6 +73,7 @@ test('POST /movies/:id/directors should create a many-to-many relationship recor
   expect(res.body.length).toBe(1);
 });
 
+//test para relacion n:m
 test('POST /movies/:id/genres should create a many-to-many relationship record between movies and genres', async () => {
   const genre = await Genre.create({
     name: "Animation"
@@ -81,6 +84,16 @@ test('POST /movies/:id/genres should create a many-to-many relationship record b
   await genre.destroy();
   expect(res.status).toBe(200);
   expect(res.body.length).toBe(1);
+});
+
+//test para relacion 1:n
+test('PUT /movies/:id', async() => {
+  const prize = {
+    name: "Oscar to the best animation movie"
+  };
+  const res = await request(app).put(`/movies/${id}`).send(prize);
+  expect(res.status).toBe(200);
+  expect(res.body.name).toBe(prize.name);
 });
 
 test('DELETE /movies/:id should delete an movie record by id', async () => {
